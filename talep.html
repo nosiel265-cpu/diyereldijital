@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f8">
+  <title>Bilgi Güncelleme Talebi | DİYEREL Dijital</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7f8;
+      color: #20242c;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 24px;
+    }
+
+    .header-inner {
+      max-width: 850px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .back {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 650px;
+      margin: 55px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 34px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.035);
+    }
+
+    h1 {
+      font-size: 27px;
+      letter-spacing: -.8px;
+      margin: 0 0 12px;
+    }
+
+    .intro {
+      color: #6b7280;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 20px 0 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      background: #fff;
+      color: #20242c;
+      font: inherit;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #20242c;
+      box-shadow: 0 0 0 3px rgba(32,36,44,.08);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .notice {
+      background: #f3f4f6;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      margin-top: 25px;
+      color: #374151;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 10px;
+      background: #20242c;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover { background: #383e49; }
+    button:disabled { opacity: .6; cursor: wait; }
+
+    .message {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 9px;
+      font-size: 14px;
+    }
+
+    .success { background: #ecfdf5; color: #065f46; }
+    .error { background: #fef2f2; color: #991b1b; }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #9ca3af;
+      font-size: 13px;
+    }
+
+    @media(max-width:600px) {
+      main { margin: 25px auto; }
+      .card { padding: 23px; }
+      h1 { font-size: 23px; }
+      .logo { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">DİYEREL Dijital</div>
+    <a class="back" href="/">← Ana Sayfa</a>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h1>Bilgi Güncelleme Talebi</h1>
+
+    <p class="intro">
+      DİYEREL Dijital kartınızdaki bağlantıyı veya
+      bilgileri değiştirmek için aşağıdaki formu doldurun.
+    </p>
+
+    <form id="requestForm">
+
+      <label for="business_name">İşletme İsmi *</label>
+      <input
+        id="business_name"
+        name="business_name"
+        type="text"
+        maxlength="150"
+        minlength="2"
+        placeholder="İşletmenizin adını yazın"
+        required
+      >
+
+      <label for="whatsapp_number">WhatsApp Numaranız *</label>
+      <input
+        id="whatsapp_number"
+        name="whatsapp_number"
+        type="tel"
+        maxlength="25"
+        placeholder="05XX XXX XX XX"
+        required
+      >
+
+      <label for="card_type">Kart Türü *</label>
+      <select id="card_type" name="card_type" required>
+        <option value="">Kart türünü seçin</option>
+        <option value="google">Google Değerlendirme Kartı</option>
+        <option value="instagram">Instagram Takip Kartı</option>
+        <option value="iban">IBAN Kartı</option>
+      </select>
+
+      <label for="new_information">
+        Yeni Bağlantı veya Bilgi *
+      </label>
+      <textarea
+        id="new_information"
+        name="new_information"
+        maxlength="2000"
+        placeholder="Değiştirmek istediğiniz yeni bağlantıyı veya bilgiyi yazın"
+        required
+      ></textarea>
+
+      <label for="description">
+        Ek Açıklama (İsteğe Bağlı)
+      </label>
+      <textarea
+        id="description"
+        name="description"
+        maxlength="2000"
+        placeholder="Eklemek istediğiniz detayları yazın"
+      ></textarea>
+
+      <div class="notice">
+        <strong>Hızlı Talep İşleme</strong>
+        <p>
+          Talebiniz çok kısa süre içerisinde işleme
+          alınacaktır. Güncelleme işlemi yetkili
+          ekibimiz tarafından gerçekleştirilecektir.
+        </p>
+      </div>
+
+      <button id="submitButton" type="submit">
+        Güncelleme Talebi Oluştur
+      </button>
+
+      <div
+        id="formMessage"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+
+    </form>
+  </div>
+</main>
+
+<footer>
+  © DİYEREL Dijital — Tüm hakları saklıdır.
+</footer>
+
+<script>
+  const form = document.getElementById("requestForm");
+  const button = document.getElementById("submitButton");
+  const message = document.getElementById("formMessage");
+
+  function showMessage(text, type) {
+    message.hidden = false;
+    message.className = "message " + type;
+    message.textContent = text;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = Object.fromEntries(
+      new FormData(form).entries()
+    );
+
+    button.disabled = true;
+    button.textContent = "Talep gönderiliyor...";
+    message.hidden = true;
+
+    try {
+      const response = await fetch("/api/requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Talep gönderilemedi.");
+      }
+
+      showMessage(
+        "Talebiniz başarıyla alınmıştır. " +
+        "Talebiniz çok kısa süre içerisinde " +
+        "işleme alınacaktır.",
+        "success"
+      );
+
+      form.reset();
+
+    } catch (error) {
+      showMessage(
+        "Talebiniz şu anda gönderilemedi. " +
+        "Lütfen daha sonra tekrar deneyin.",
+        "error"
+      );
+    } finally {
+      button.disabled = false;
+      button.textContent = "Güncelleme Talebi Oluştur";
+    }
+  });
+</script>
+
+</body>
+</html>
