@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Yönetici Paneli | DİYEREL Dijital</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      color: #171717;
+    }
+
+    .panel {
+      width: 400px;
+      max-width: 92%;
+      padding: 35px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 0 0 8px;
+    }
+
+    p {
+      color: #666666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 14px;
+      border: 1px solid #dddddd;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #333333;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      background: #171717;
+      color: #ffffff;
+      border: none;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #333333;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 12px;
+      color: #999999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="panel">
+
+    <h1>DİYEREL Dijital</h1>
+
+    <p>Yönetici paneline giriş yapın.</p>
+
+    <form id="loginForm">
+
+      <input
+        id="email"
+        type="email"
+        placeholder="E-posta adresiniz"
+        autocomplete="username"
+        required
+      >
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Şifreniz"
+        autocomplete="current-password"
+        required
+      >
+
+      <button id="loginButton" type="submit">
+        Giriş Yap
+      </button>
+
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <div class="footer">
+      DİYEREL Dijital © 2026
+    </div>
+
+  </div>
+
+  <script type="module">
+
+    import { createClient } from
+      "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabase = createClient(
+      "https://hkdmvzvxddgyrmvlarku.supabase.co",
+      "sb_publishable_oNTIz4aamnZJWCRw4JMg1A_Uzx9gyuo"
+    );
+
+    const form = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+    const button = document.getElementById("loginButton");
+
+    form.addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      button.disabled = true;
+      message.textContent = "Giriş yapılıyor...";
+
+      try {
+
+        const { error } =
+          await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
+
+        if (error) {
+          message.textContent =
+            "Giriş başarısız. E-posta veya şifrenizi kontrol edin.";
+          return;
+        }
+
+        message.textContent =
+          "Giriş başarılı. Yönetici paneli hazırlanıyor.";
+
+      } catch (error) {
+
+        message.textContent =
+          "Bağlantı hatası. Lütfen tekrar deneyin.";
+
+      } finally {
+
+        button.disabled = false;
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
