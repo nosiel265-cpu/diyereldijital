@@ -3,138 +3,220 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Yönetici Paneli | DİYEREL Dijital</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yönetim Paneli | DİYEREL Dijital</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f3f4f6;
+      background: #f4f5f7;
+      color: #202124;
       font-family: Arial, sans-serif;
-      color: #171717;
     }
-
-    .panel {
-      width: 400px;
-      max-width: 92%;
+    .hidden { display: none !important; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .login-wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 410px;
       padding: 35px;
-      background: #ffffff;
+      background: white;
       border-radius: 16px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 40px #00000012;
     }
-
-    h1 {
-      font-size: 26px;
-      margin: 0 0 8px;
-    }
-
-    p {
-      color: #666666;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
+    h1 { margin: 0 0 10px; font-size: 25px; }
+    .muted { color: #6b7280; font-size: 14px; }
     input {
+      display: block;
       width: 100%;
       padding: 14px;
-      margin-top: 14px;
-      border: 1px solid #dddddd;
-      border-radius: 9px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    input:focus {
-      border-color: #333333;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 20px;
-      background: #171717;
-      color: #ffffff;
-      border: none;
-      border-radius: 9px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #333333;
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: wait;
-    }
-
-    #message {
       margin-top: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+    }
+    .btn {
+      padding: 12px 18px;
+      background: #171717;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+    }
+    .btn:disabled { opacity: .6; cursor: wait; }
+    .login-card .btn {
+      width: 100%;
+      margin-top: 20px;
+    }
+    .secondary {
+      background: white;
+      color: #202124;
+      border: 1px solid #d1d5db;
+    }
+    .topbar {
+      background: #171717;
+      color: white;
+      padding: 20px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .topbar h1 { font-size: 20px; margin: 0; }
+    .topbar .secondary { padding: 10px 16px; }
+    main {
+      max-width: 1200px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .toolbar h2 { margin: 0; font-size: 23px; }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .table-scroll { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th, td {
+      padding: 16px;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 14px;
+      vertical-align: top;
+    }
+    th { background: #f9fafb; color: #4b5563; }
+    td { overflow-wrap: anywhere; }
+    tr:last-child td { border-bottom: 0; }
+    .detail-btn {
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 7px;
+      padding: 8px 12px;
+    }
+    .status {
+      padding: 15px 0;
+      color: #4b5563;
       font-size: 14px;
     }
-
-    .footer {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 12px;
-      color: #999999;
+    .error { color: #b91c1c; }
+    dialog {
+      width: min(600px, 92vw);
+      border: none;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 20px 80px #0004;
+    }
+    dialog::backdrop { background: #0008; }
+    .detail-row {
+      margin: 16px 0;
+      overflow-wrap: anywhere;
+    }
+    .detail-row strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+    .detail-row p {
+      margin: 0;
+      white-space: pre-wrap;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="panel">
+  <section id="loginSection" class="login-wrap">
+    <div class="login-card">
+      <h1>DİYEREL Dijital</h1>
+      <p class="muted">Yönetici paneline giriş yapın.</p>
 
-    <h1>DİYEREL Dijital</h1>
-
-    <p>Yönetici paneline giriş yapın.</p>
-
-    <form id="loginForm">
-
-      <input
-        id="email"
-        type="email"
-        placeholder="E-posta adresiniz"
-        autocomplete="username"
-        required
-      >
-
-      <input
-        id="password"
-        type="password"
-        placeholder="Şifreniz"
-        autocomplete="current-password"
-        required
-      >
-
-      <button id="loginButton" type="submit">
-        Giriş Yap
-      </button>
-
-    </form>
-
-    <p id="message" role="status"></p>
-
-    <div class="footer">
-      DİYEREL Dijital © 2026
+      <form id="loginForm">
+        <input
+          id="email"
+          type="email"
+          placeholder="E-posta adresiniz"
+          autocomplete="username"
+          required
+        >
+        <input
+          id="password"
+          type="password"
+          placeholder="Şifreniz"
+          autocomplete="current-password"
+          required
+        >
+        <button id="loginButton" class="btn" type="submit">
+          Giriş Yap
+        </button>
+      </form>
+      <p id="loginMessage" class="status" role="status"></p>
     </div>
+  </section>
 
-  </div>
+  <section id="dashboardSection" class="hidden">
+    <header class="topbar">
+      <h1>DİYEREL Dijital | Yönetim Paneli</h1>
+      <button id="logoutButton" class="btn secondary">
+        Çıkış Yap
+      </button>
+    </header>
+
+    <main>
+      <div class="toolbar">
+        <div>
+          <h2>Güncelleme Talepleri</h2>
+          <p class="muted">
+            Son 100 müşteri talebi
+          </p>
+        </div>
+        <button id="refreshButton" class="btn">
+          Talepleri Yenile
+        </button>
+      </div>
+
+      <div class="card table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Tarih</th>
+              <th>İşletme</th>
+              <th>WhatsApp</th>
+              <th>Kart Türü</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody id="requestsBody"></tbody>
+        </table>
+      </div>
+
+      <p id="dashboardMessage" class="status" role="status"></p>
+    </main>
+  </section>
+
+  <dialog id="detailDialog">
+    <h2>Talep Detayları</h2>
+    <div id="detailContent"></div>
+    <button id="closeDetailButton" class="btn secondary">
+      Kapat
+    </button>
+  </dialog>
 
   <script type="module">
-
     import { createClient } from
       "https://esm.sh/@supabase/supabase-js@2";
 
@@ -143,24 +225,211 @@
       "sb_publishable_oNTIz4aamnZJWCRw4JMg1A_Uzx9gyuo"
     );
 
-    const form = document.getElementById("loginForm");
-    const message = document.getElementById("message");
-    const button = document.getElementById("loginButton");
+    const loginSection =
+      document.getElementById("loginSection");
+    const dashboardSection =
+      document.getElementById("dashboardSection");
+    const loginForm =
+      document.getElementById("loginForm");
+    const loginMessage =
+      document.getElementById("loginMessage");
+    const loginButton =
+      document.getElementById("loginButton");
+    const dashboardMessage =
+      document.getElementById("dashboardMessage");
+    const requestsBody =
+      document.getElementById("requestsBody");
+    const refreshButton =
+      document.getElementById("refreshButton");
+    const detailDialog =
+      document.getElementById("detailDialog");
+    const detailContent =
+      document.getElementById("detailContent");
 
-    form.addEventListener("submit", async (event) => {
+    const cardNames = {
+      google: "Google Değerlendirme",
+      instagram: "Instagram",
+      iban: "IBAN"
+    };
 
-      event.preventDefault();
+    let requests = [];
 
-      const email =
-        document.getElementById("email").value.trim();
+    function showLogin() {
+      dashboardSection.classList.add("hidden");
+      loginSection.classList.remove("hidden");
+      requestsBody.replaceChildren();
+      requests = [];
+    }
 
-      const password =
-        document.getElementById("password").value;
+    function showDashboard() {
+      loginSection.classList.add("hidden");
+      dashboardSection.classList.remove("hidden");
+    }
 
-      button.disabled = true;
-      message.textContent = "Giriş yapılıyor...";
+    function formatDate(value) {
+      if (!value) return "-";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "-";
+      return date.toLocaleString("tr-TR");
+    }
+
+    function makeCell(value) {
+      const td = document.createElement("td");
+      td.textContent = value == null ? "-" : String(value);
+      return td;
+    }
+
+    function addDetail(label, value) {
+      const row = document.createElement("div");
+      row.className = "detail-row";
+
+      const heading = document.createElement("strong");
+      heading.textContent = label;
+
+      const text = document.createElement("p");
+      text.textContent = value == null || value === ""
+        ? "-"
+        : String(value);
+
+      row.append(heading, text);
+      detailContent.appendChild(row);
+    }
+
+    function openDetail(index) {
+      const item = requests[index];
+      if (!item) return;
+
+      detailContent.replaceChildren();
+
+      addDetail("Tarih", formatDate(item.created_at));
+      addDetail("İşletme", item.business_name);
+      addDetail("WhatsApp", item.whatsapp_number);
+      addDetail(
+        "Kart Türü",
+        cardNames[item.card_type] || item.card_type
+      );
+      addDetail("Yeni Bilgi", item.new_information);
+      addDetail("Açıklama", item.description);
+
+      detailDialog.showModal();
+    }
+
+    function renderRequests() {
+      requestsBody.replaceChildren();
+
+      if (requests.length === 0) {
+        const row = document.createElement("tr");
+        const cell = makeCell("Henüz talep bulunmuyor.");
+        cell.colSpan = 5;
+        row.appendChild(cell);
+        requestsBody.appendChild(row);
+        return;
+      }
+
+      requests.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        row.appendChild(makeCell(formatDate(item.created_at)));
+        row.appendChild(makeCell(item.business_name));
+        row.appendChild(makeCell(item.whatsapp_number));
+        row.appendChild(
+          makeCell(cardNames[item.card_type] || item.card_type)
+        );
+
+        const actionCell = document.createElement("td");
+        const button = document.createElement("button");
+        button.className = "detail-btn";
+        button.textContent = "Detay";
+        button.addEventListener("click", () => {
+          openDetail(index);
+        });
+
+        actionCell.appendChild(button);
+        row.appendChild(actionCell);
+        requestsBody.appendChild(row);
+      });
+    }
+
+    async function loadRequests() {
+      dashboardMessage.classList.remove("error");
+      dashboardMessage.textContent = "Talepler yükleniyor...";
+      refreshButton.disabled = true;
 
       try {
+        const { data: sessionData, error: sessionError } =
+          await supabase.auth.getSession();
+
+        const token = sessionData?.session?.access_token;
+
+        if (sessionError || !token) {
+          showLogin();
+          loginMessage.textContent =
+            "Oturum süresi doldu. Tekrar giriş yapın.";
+          return;
+        }
+
+        const response = await fetch("/api/admin-requests", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          cache: "no-store"
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            await supabase.auth.signOut();
+            showLogin();
+            loginMessage.textContent =
+              "Oturum süresi doldu. Tekrar giriş yapın.";
+            return;
+          }
+
+          if (response.status === 403) {
+            await supabase.auth.signOut();
+            showLogin();
+            loginMessage.textContent =
+              "Bu hesabın yönetici yetkisi bulunmuyor.";
+            return;
+          }
+
+          throw new Error(
+            result.error || "Talepler alınamadı."
+          );
+        }
+
+        requests = Array.isArray(result.requests)
+          ? result.requests
+          : [];
+
+        renderRequests();
+        showDashboard();
+
+        dashboardMessage.textContent =
+          `${requests.length} talep listeleniyor.`;
+
+      } catch (error) {
+        dashboardMessage.classList.add("error");
+        dashboardMessage.textContent =
+          error.message || "Bir hata oluştu.";
+      } finally {
+        refreshButton.disabled = false;
+      }
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      loginButton.disabled = true;
+      loginMessage.textContent = "Giriş yapılıyor...";
+
+      try {
+        const email =
+          document.getElementById("email").value.trim();
+        const password =
+          document.getElementById("password").value;
 
         const { error } =
           await supabase.auth.signInWithPassword({
@@ -169,28 +438,48 @@
           });
 
         if (error) {
-          message.textContent =
-            "Giriş başarısız. E-posta veya şifrenizi kontrol edin.";
+          loginMessage.textContent =
+            "E-posta veya şifre hatalı.";
           return;
         }
 
-        message.textContent =
-          "Giriş başarılı. Yönetici paneli hazırlanıyor.";
+        document.getElementById("password").value = "";
+        loginMessage.textContent = "";
+
+        showDashboard();
+        await loadRequests();
 
       } catch (error) {
-
-        message.textContent =
-          "Bağlantı hatası. Lütfen tekrar deneyin.";
-
+        loginMessage.textContent =
+          "Giriş sırasında bağlantı hatası oluştu.";
       } finally {
-
-        button.disabled = false;
-
+        loginButton.disabled = false;
       }
-
     });
 
-  </script>
+    document.getElementById("logoutButton")
+      .addEventListener("click", async () => {
+        await supabase.auth.signOut();
+        showLogin();
+        loginMessage.textContent = "Çıkış yapıldı.";
+      });
 
+    refreshButton.addEventListener("click", loadRequests);
+
+    document.getElementById("closeDetailButton")
+      .addEventListener("click", () => {
+        detailDialog.close();
+      });
+
+    const { data: initialSession } =
+      await supabase.auth.getSession();
+
+    if (initialSession?.session) {
+      showDashboard();
+      await loadRequests();
+    } else {
+      showLogin();
+    }
+  </script>
 </body>
 </html>
