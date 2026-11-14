@@ -107,10 +107,13 @@ export default async function handler(req, res) {
     );
 
     if (!response.ok) {
-      console.error(
-        "Supabase insert failed:",
-        response.status
-      );
+     const errorText = await response.text();
+
+console.error(
+  "Supabase insert failed:",
+  response.status,
+  errorText
+);
 
       return send(res, 500, {
         error: "Talep kaydedilemedi."
